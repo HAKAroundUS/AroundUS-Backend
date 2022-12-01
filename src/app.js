@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const morgan = require('morgan')
 
 const api = require('./routes/api')
@@ -6,6 +7,12 @@ const globalErrorHandler = require('./controllers/error')
 const AppError = require('./services/appError')
 
 const app = express()
+
+app.use(
+  cors({
+    origin: "https://aroundus.onrender.com/"
+  })
+);
 
 if(process.env.NODE_ENV === 'development')
     app.use(morgan('dev'))
