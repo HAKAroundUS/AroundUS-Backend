@@ -1,17 +1,19 @@
 const { findByQuery, findById, addShop, findByOwnerId } = require("../models/models/shops")
 const AppError = require("../services/appError")
 const catchAsync = require("../services/catchAsync")
+const getCoords = require("../services/getCoords")
 
 const getShopsByQuery = catchAsync(async (req, res, next) => {
     let { city } = req.query
     city = city.split(',').join(' ')
-    console.log(city)
+    const coords = await getCoords(city)
     const shops = await findByQuery(city)
     return res.json({
         status: 'success',
         results: shops.length,
         data: {
-            shops
+            shops,
+            coords
         }
     })
 })
@@ -32,7 +34,7 @@ const addNewShop = catchAsync(async (req, res, next) => {
 
     if (!name || !category || !address)
         return next(new AppError('Missing fields', 400))
-    
+
     const city = address.split(',')[1]
 
     const ownerId = req.user.userId
