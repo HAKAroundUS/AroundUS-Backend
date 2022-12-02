@@ -23,7 +23,7 @@ app.use(express.json())
 
 app.use('/v1', api)
 
-app.get('/testServer', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Server is working fine!')
 })
 
