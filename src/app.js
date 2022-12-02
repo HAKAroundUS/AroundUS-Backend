@@ -16,15 +16,19 @@ app.use(
   })
 );
 
-if(process.env.NODE_ENV === 'development')
-    app.use(morgan('dev'))
+if (process.env.NODE_ENV === 'development')
+  app.use(morgan('dev'))
 
 app.use(express.json())
 
 app.use('/v1', api)
 
+app.get('/testServer', (req, res) => {
+  res.send('Server is working fine!')
+})
+
 app.all('/*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server`, 404))
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404))
 })
 
 app.use(globalErrorHandler)
