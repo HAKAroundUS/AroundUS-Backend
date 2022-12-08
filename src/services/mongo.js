@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const MONGO_URL = process.env.MONGO_URL.replace('<password>', process.env.MONGO_PASSWORD)
+const MONGO_URL = process.env.MONGO_URL
 // const MONGO_URL = process.env.LOCALHOST
 
 mongoose.connection.once('open', () => {
